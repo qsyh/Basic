@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lalala</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><p></p><div class="toc"><h3>文章目录</h3><ul><li><a href="#_5">前言</a></li><li><a href="#1_12">1.电路图</a></li><li><a href="#28255A_23">2.8255A何时正常工作</a></li><li><a href="#3iso_29">3.iso何时输出低电平</a></li><li><a href="#48255AA0A1_32">4.8255A的A0和A1引脚</a></li><li><a href="#58255_35">5.8255地址</a></li></ul></div><p></p>
+<hr color="#000000" size="1&quot;">
+<h1><a id="_5"></a>前言</h1>
+<p><font color="#999AAA">本文介绍关于芯片地址问题</font></p>
+<hr color="#000000" size="1&quot;">
+<h1><a id="1_12"></a>1.电路图</h1>
+<p><font color="#999AAA">芯片图如下：</font></p>
+<p><img src="https://img-blog.csdnimg.cn/2021061420573081.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FzeWhf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20210614205518616.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FzeWhf,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1><a id="28255A_23"></a>2.8255A何时正常工作</h1>
+<p><font color="#000000">8255A芯片被选中实际上就是cs(chip selection：片选)引脚得到有效信号，在该芯片中的cs上的一横意思就是低电平有效，也就是说当cs得到低电平信号的时候，8255A正常工作。一般情况下cs是片选引脚，其得到的有效信号称为片选信号</font></p>
+<hr color="#000000" size="1&quot;">
+<h1><a id="3iso_29"></a>3.iso何时输出低电平</h1>
+<p><font color="#000000">很明显图一的iso就是片选信号，当iso输出(即输出低电平)时，8255A被选中，iso连接着的就是74154译码器，iso就是输出引脚8，所以DCBA等于1000的时候iso输出，所以A11–A8就是1000，而74154也有两个控制引脚En(Enable ：使能)，类似于片选引脚cs，也是要得到有效电平时才能使74154工作，两个引脚前面的圆圈意思就是低电平有效，E2低电平时A15–A12都是低电平，即0000，所以A15–A8=08H的时候8255A被选中</font></p>
+<h1><a id="48255AA0A1_32"></a>4.8255A的A0和A1引脚</h1>
+<p><font color="#000000">8255上的A0和A1引脚即对应着地址总线上的A0和A1，A1–A0=00时，选中pa端口；A1–A0=01时，选中pb端口；A1–A0=10时，选中pc端口；A1–A0=11时，选中写控制字的端口；</font></p>
+<h1><a id="58255_35"></a>5.8255地址</h1>
+<p><font color="#000000">所以当选中8255的pa端口时，只需要满足A15–A8=08H，A1–A0=00，其它引脚在该电路图中没有用到，也没有参与到芯片控制中，故为1或0都可以，一般用x代表不确定的状态，所以pa端口地址是xxxx 0 8 xxxx xx00。题目让我们把x做零处理，很多题目也是这样处理的，但不准确，当x=1的时候8255的pa端口也是被选中了。所以考试的时候还是建议将x当作0来处理</font></p>
+<hr color="#000000" size="1&quot;">
+</div>
+</body>
+
+</html>
